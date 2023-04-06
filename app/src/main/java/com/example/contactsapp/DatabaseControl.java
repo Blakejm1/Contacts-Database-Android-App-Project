@@ -25,22 +25,39 @@ public class DatabaseControl {
     }
 
     // Insert one bundle into the database
-    public boolean insert(String name, String state) {
+    public boolean insert(String name, String date, String developer) {
         ContentValues values = new ContentValues();
         values.put("name", name);
-        values.put("state", state);
+        values.put("date", date);
+        values.put("developer", developer);
         return database.insert("contact", null, values) > 0;
     }
 
     // Get something out of the database
-    public String getState(String name) {
+    public String getDate(String name) {
         // Select state from the database
-        String query = "select state from contact where name=\""+name+"\"";
+        String query = "select date from contact where name=\""+name+"\"";
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
-        String state = cursor.getString(0);
+        String date = cursor.getString(0);
         cursor.close();
-        return  state;
+        return  date;
+    }
+
+    // Get something out of the database
+    public String getDeveloper(String name) {
+        // Select state from the database
+        String query = "select developer from contact where name=\""+name+"\"";
+        Cursor cursor = database.rawQuery(query, null);
+        cursor.moveToFirst();
+        String developer = cursor.getString(0);
+        cursor.close();
+        return  developer;
+    }
+
+    // Remove something out of the database
+    public int delete(String n) {
+        return database.delete("contact", "name=\""+n+"\"", null);
     }
 
     public String[] getAllNamesArray() {

@@ -15,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String sqlCommand = "create table contact (_id integer primary key autoincrement, " +
-                "name text, state text)";
+                "name text, date text, developer text)";
         sqLiteDatabase.execSQL(sqlCommand);
     }
 
