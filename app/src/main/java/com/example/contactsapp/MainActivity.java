@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
              @Override
              public void onClick(View view) {
                  control.open();
+                 //if(control.)
                  String date = control.getDate(nameEdit.getText().toString());
                  control.close();
                  resultView.setText(date);
@@ -113,7 +115,20 @@ public class MainActivity extends AppCompatActivity {
         control.open();
         String[] nameArray = control.getAllNamesArray();
         control.close();
-        recyclerView.setAdapter(new CustomAdapter(nameArray));
+        CustomAdapter adapter = new CustomAdapter(nameArray);
+        adapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CustomAdapter.ViewHolder viewHolder = (CustomAdapter.ViewHolder) view.getTag();
+                TextView textView = viewHolder.getTextView();
+                String name = textView.getText().toString();
+                control.open();
+                String state = control.getDate(name);
+                control.close();
+                resultView.setText(name+": "+state);
+            }
+        });
+        recyclerView.setAdapter(adapter);
     }
 
 }

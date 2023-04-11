@@ -12,19 +12,21 @@ import com.example.contactsapp.R;
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
     private String[] localDataSet;
+    View.OnClickListener listener;
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder)
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
-
             textView = (TextView) view.findViewById(R.id.textView);
+            textView.setOnClickListener(listener);
+            textView.setTag(this);
         }
 
         public TextView getTextView() {
@@ -40,6 +42,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
      */
     public CustomAdapter(String[] dataSet) {
         localDataSet = dataSet;
+    }
+
+    public void setOnClickListener(View.OnClickListener listenThing) {
+        listener = listenThing;
     }
 
     // Create new views (invoked by the layout manager)

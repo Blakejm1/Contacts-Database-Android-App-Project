@@ -39,9 +39,15 @@ public class DatabaseControl {
         String query = "select date from contact where name=\""+name+"\"";
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
-        String date = cursor.getString(0);
-        cursor.close();
-        return  date;
+        if(!cursor.isAfterLast()) {
+            String date = cursor.getString(0);
+            cursor.close();
+            return  date;
+        }
+        else {
+            cursor.close();
+            return null;
+        }
     }
 
     // Get something out of the database
@@ -50,9 +56,15 @@ public class DatabaseControl {
         String query = "select developer from contact where name=\""+name+"\"";
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
-        String developer = cursor.getString(0);
-        cursor.close();
-        return  developer;
+        if(!cursor.isAfterLast()) {
+            String developer = cursor.getString(0);
+            cursor.close();
+            return  developer;
+        }
+        else {
+            cursor.close();
+            return null;
+        }
     }
 
     // Remove something out of the database
